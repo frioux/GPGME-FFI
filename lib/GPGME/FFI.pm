@@ -3,6 +3,9 @@ package GPGME::FFI;
 use strict;
 use warnings;
 
+# see /usr/include/gpgme.h
+# and /usr/include/x86_64-linux-gnu/gpg-error.h
+
 BEGIN {
    use FFI::Platypus::Declare qw( string );
    use FFI::CheckLib;
@@ -11,7 +14,7 @@ BEGIN {
 
    # https://www.gnupg.org/documentation/manuals/gpgme/Protocols-and-Engines.html#Protocols-and-Engines
    type 'int' => 'gpgme_protocol_t';
-   use constant {
+   use constant { # {{{ enum gpgme_protocol_t
       GPGME_PROTOCOL_OpenPGP  => 0,
       GPGME_PROTOCOL_CMS      => 1,
       GPGME_PROTOCOL_GPGCONF  => 2,
@@ -21,13 +24,13 @@ BEGIN {
       GPGME_PROTOCOL_SPAWN    => 6,
       GPGME_PROTOCOL_DEFAULT  => 254,
       GPGME_PROTOCOL_UNKNOWN  => 255,
-   };
+   }; # }}}
    attach gpgme_get_protocol_name => ['gpgme_protocol_t'] => 'string';
 
    # https://www.gnupg.org/documentation/manuals/gpgme/Engine-Version-Check.html#Engine-Version-Check
    attach gpgme_get_dirinfo => ['string'] => 'string';
    type 'int' => 'gpgme_error_t';
-   use constant {
+   use constant { # {{{ enum gpgme_error_t
       GPGME_ERR_NO_ERROR                 => 0,
       GPGME_ERR_GENERAL                  => 1,
       GPGME_ERR_UNKNOWN_PACKET           => 2,
@@ -456,11 +459,11 @@ BEGIN {
       GPGME_ERR_EXDEV                    => 1<<15 | 139,
       GPGME_ERR_EXFULL                   => 1<<15 | 140,
       GPGME_ERR_CODE_DIM                 => 65536
-   };
+   }; # }}}
    attach gpgme_engine_check_version => ['gpgme_protocol_t'] => 'gpgme_error_t';
 
    type int => 'gpgme_err_source_t';
-   use constant {
+   use constant { # {{{ enum gpg_err_source_t
       GPGME_ERR_SOURCE_UNKNOWN  => 0,
       GPGME_ERR_SOURCE_GCRYPT   => 1,
       GPGME_ERR_SOURCE_GPG      => 2,
@@ -484,7 +487,7 @@ BEGIN {
       GPGME_ERR_SOURCE_USER_3   => 34,
       GPGME_ERR_SOURCE_USER_4   => 35,
       GPGME_ERR_SOURCE_DIM      => 128
-   };
+   }; # }}}
 
 }
 
@@ -503,3 +506,5 @@ use Sub::Exporter::Progressive -setup => {
 };
 
 1;
+
+# vim: fdm=marker
