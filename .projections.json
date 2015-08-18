@@ -1,0 +1,12 @@
+{
+   "lib/GPGME/FFI/*.pm": {
+      "alternate": "t/{}.t",
+      "make": "perl -Ilib t/{}.t",
+      "type": "lib"
+   },
+   "t/*.t": {
+      "alternate": "lib/GPGME/FFI/{}.pm",
+      "type": "test"
+   },
+   "*": {"make": "perl -Ilib"}
+}
