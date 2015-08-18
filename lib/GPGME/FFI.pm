@@ -7,13 +7,13 @@ use warnings;
 # and /usr/include/x86_64-linux-gnu/gpg-error.h
 
 BEGIN {
-   use FFI::Platypus::Declare qw( string );
+   use FFI::Platypus::Declare qw( string uint );
    use FFI::CheckLib;
 
    lib find_lib_or_die lib => 'gpgme';
 
    # https://www.gnupg.org/documentation/manuals/gpgme/Protocols-and-Engines.html#Protocols-and-Engines
-   type 'int' => 'gpgme_protocol_t';
+   type uint, 'gpgme_protocol_t';
    use constant { # {{{ enum gpgme_protocol_t
       GPGME_PROTOCOL_OpenPGP  => 0,
       GPGME_PROTOCOL_CMS      => 1,
@@ -25,11 +25,11 @@ BEGIN {
       GPGME_PROTOCOL_DEFAULT  => 254,
       GPGME_PROTOCOL_UNKNOWN  => 255,
    }; # }}}
-   attach gpgme_get_protocol_name => ['gpgme_protocol_t'] => 'string';
+   attach gpgme_get_protocol_name => ['gpgme_protocol_t'] => string;
 
    # https://www.gnupg.org/documentation/manuals/gpgme/Engine-Version-Check.html#Engine-Version-Check
-   attach gpgme_get_dirinfo => ['string'] => 'string';
-   type 'int' => 'gpgme_error_t';
+   attach gpgme_get_dirinfo => [string], string;
+   type uint, 'gpgme_error_t';
    use constant { # {{{ enum gpgme_error_t
       GPGME_ERR_NO_ERROR                 => 0,
       GPGME_ERR_GENERAL                  => 1,
@@ -462,7 +462,7 @@ BEGIN {
    }; # }}}
    attach gpgme_engine_check_version => ['gpgme_protocol_t'] => 'gpgme_error_t';
 
-   type int => 'gpgme_err_source_t';
+   type uint, 'gpgme_err_source_t';
    use constant { # {{{ enum gpg_err_source_t
       GPGME_ERR_SOURCE_UNKNOWN  => 0,
       GPGME_ERR_SOURCE_GCRYPT   => 1,
