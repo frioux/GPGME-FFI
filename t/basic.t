@@ -19,4 +19,6 @@ is(
    'gpgme_get_protocol_name',
 );
 
+like(gpgme_strerror(GPGME_ERR_GENERAL), qr/general/i, 'gpgme_strerror');
+
 done_testing;
