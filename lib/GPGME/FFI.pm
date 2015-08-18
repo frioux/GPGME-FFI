@@ -489,6 +489,7 @@ BEGIN {
       GPGME_ERR_SOURCE_DIM      => 128
    }; # }}}
 
+   attach gpgme_get_engine_info => ['record(GPGME::FFI::EngineInfo)'] => 'gpgme_error_t';
 }
 
 use Package::Stash;
