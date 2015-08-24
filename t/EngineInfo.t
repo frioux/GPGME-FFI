@@ -39,9 +39,14 @@ gpgme_set_engine_info(
    '/baz',
 );
 
+$info = GPGME::FFI::EngineInfo->new;
+$error = gpgme_get_engine_info($info);
+$protocol_count = 0;
 
-for my $info (@info) {
+while($info = $info->next) {
+   push @info, $info;
    no warnings 'uninitialized';
+   $protocol_count++;
 
    note(
       join "\n",
