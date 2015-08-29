@@ -21,4 +21,10 @@ is(
 
 like(gpgme_strerror(GPGME_ERR_GENERAL), qr/general/i, 'gpgme_strerror');
 
+is(
+   gpgme_pubkey_algo_name(GPGME_PK_RSA),
+   'RSA',
+   'gpgme_pubkey_algo_name',
+);
+
 done_testing;

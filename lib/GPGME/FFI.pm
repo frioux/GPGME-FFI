@@ -500,6 +500,22 @@ BEGIN {
       string,
       string,
    ] => 'gpgme_error_t';
+
+   # https://www.gnupg.org/documentation/manuals/gpgme/Public-Key-Algorithms.html#Public-Key-Algorithms
+   type uint, 'gpgme_pubkey_algo_t';
+   use constant { # {{{ enum gpgme_pubkey_algo_t
+    GPGME_PK_RSA   => 1,
+    GPGME_PK_RSA_E => 2,
+    GPGME_PK_RSA_S => 3,
+    GPGME_PK_ELG_E => 16,
+    GPGME_PK_DSA   => 17,
+    GPGME_PK_ECC   => 18,
+    GPGME_PK_ELG   => 20,
+    GPGME_PK_ECDSA => 301,
+    GPGME_PK_ECDH  => 302
+   }; # }}}
+
+   attach gpgme_pubkey_algo_name => [ 'gpgme_pubkey_algo_t' ] => string;
 }
 
 use Package::Stash;
