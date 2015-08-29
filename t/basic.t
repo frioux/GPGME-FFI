@@ -27,4 +27,10 @@ is(
    'gpgme_pubkey_algo_name',
 );
 
+is(
+   gpgme_hash_algo_name(GPGME_MD_MD5),
+   'MD5',
+   'gpgme_hash_algo_name',
+);
+
 done_testing;
