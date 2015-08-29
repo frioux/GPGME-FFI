@@ -489,10 +489,12 @@ BEGIN {
       GPGME_ERR_SOURCE_DIM      => 128
    }; # }}}
 
+   # https://www.gnupg.org/documentation/manuals/gpgme/Engine-Information.html#Engine-Information
    attach gpgme_get_engine_info => ['record(GPGME::FFI::EngineInfo)'] => 'gpgme_error_t';
 
    attach gpgme_strerror => ['gpgme_error_t'], string;
 
+   # https://www.gnupg.org/documentation/manuals/gpgme/Engine-Configuration.html#Engine-Configuration
    attach gpgme_set_engine_info => [
       'gpgme_protocol_t',
       string,
